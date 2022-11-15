@@ -1,4 +1,6 @@
 .btn {
+  $self: &;
+
   background-color: transparent;
   border: none;
   border-radius: $br;
@@ -26,5 +28,35 @@
 
   &--w100 {
     width: 100%;
+  }
+
+  &--sending {
+    &#{$self} {
+      &-primary {
+        animation: progress 0.5s linear infinite;
+        background-size: 30px 30px;
+        background-color: rgba($primary, 0.8);
+        background-image: linear-gradient(
+          45deg,
+          rgba($primary, 0.5) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgba($primary, 0.5) 50%,
+          rgba($primary, 0.5) 75%,
+          transparent 75%,
+          transparent
+        );
+      }
+    }
+  }
+}
+
+@keyframes progress {
+  from {
+    background-position: 0 0
+  }
+
+  to {
+    background-position: 60px 30px
   }
 }

@@ -4,6 +4,12 @@
 @import './page';
 @import './btn';
 
+// Blocks
+@import './sidebar';
+@import './content';
+@import './header';
+@import './footer';
+
 *,
 *::before,
 *::after {

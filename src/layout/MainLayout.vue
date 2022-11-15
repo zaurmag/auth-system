@@ -5,7 +5,7 @@
     <div class="content content--right">
       <header class="header">Header</header>
 
-      <main class="main">
+      <main class="content__body">
         <router-view />
       </main>
 

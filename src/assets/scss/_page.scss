@@ -1,12 +1,16 @@
 .page {
+  display: flex;
+  height: 100vh;
+
   &--empty {
+    display: block;
     background-color: $gray-200;
 
     > .container {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      height: 100vh;
+      height: 100%;
     }
   }
 }

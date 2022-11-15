@@ -5,11 +5,11 @@
     </div>
   </div>
 
-<!--  <teleport to="body">-->
-<!--   <app-message />-->
-<!--  </teleport>-->
+  <teleport to="body">
+   <app-message />
+  </teleport>
 </template>
 
 <script setup>
-// import AppMessage from '@/components/ui/AppMessage.vue'
+import AppMessage from '@/components/ui/AppMessage.vue'
 </script>

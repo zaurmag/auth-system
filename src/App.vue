@@ -2,14 +2,25 @@
   <component :is="layout + '-layout'" v-if="layout" />
 </template>
 
-<script setup>
+<script>
 import EmptyLayout from '@/layout/EmptyLayout.vue'
 import MainLayout from '@/layout/MainLayout.vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-const route = useRoute()
-const layout = computed(() => route.meta.layout)
+export default {
+  setup() {
+    const route = useRoute()
+    const layout = computed(() => route.meta.layout)
+    return {
+      layout
+    }
+  },
+  components: {
+    EmptyLayout,
+    MainLayout
+  }
+}
 </script>
 
 <style scoped>

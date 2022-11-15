@@ -1,6 +1,6 @@
 <template>
-  <div class="card-body p-lg-40">
-    <h1 class="h4 text-center mb-25">Авторизация</h1>
+  <div class="auth">
+    <h1 class="auth__title">Авторизация</h1>
     <auth-form />
   </div>
 </template>
@@ -9,12 +9,14 @@
 import AuthForm from '@/components/AuthForm.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
-import { computed, watch } from 'vue'
+import { watch } from 'vue'
 // import { error } from '@/utils/error'
 
 const route = useRoute()
 const router = useRouter()
-const isAuth = computed(() => useAuthStore.isAuthenticated)
+const store = useAuthStore()
+console.log(store)
+const isAuth = store.isAuthenticated
 document.title = 'Система авторизации'
 
 // if (route.query.message && !isAuth.value) {
@@ -37,3 +39,23 @@ watch(isAuth.value, val => {
   redirectIsAuth(val)
 })
 </script>
+
+<style scoped lang="scss">
+  .auth {
+    margin: 0 auto;
+    padding: 40px;
+    max-width: 410px;
+    background-color: #fff;
+    border-radius: 8px;
+    flex-shrink: 0;
+    width: 100%;
+    box-shadow: 0 .25rem .625rem rgba(33, 37, 41, .075);
+
+    &__title {
+      margin: 0 0 20px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 24px;
+    }
+  }
+</style>

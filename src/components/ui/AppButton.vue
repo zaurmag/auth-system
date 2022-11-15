@@ -1,15 +1,13 @@
 <template>
-  <span :class="['btn-wrapper', {'progress h-100': Object.keys(animate).length}, classListWrapper]" v-bind="attrsWrapper">
-    <button
-      :class="['btn', {'progress-bar progress-bar-striped progress-bar-animated': animate.loading}, classListBtn]"
-      :id="id"
-      :type="type"
-      @click="$emit('click')"
-      v-bind="attrs"
-    >
-      <slot name="default" />
-    </button>
-  </span>
+  <button
+    :class="['btn', {'btn--sending': animate.loading}, classList]"
+    :id="id"
+    :type="type"
+    @click="$emit('click')"
+    v-bind="attrs"
+  >
+    <slot name="default" />
+  </button>
 </template>
 
 <script>
@@ -21,11 +19,7 @@ export default {
       type: String,
       required: false
     },
-    classListBtn: {
-      type: String,
-      required: false
-    },
-    classListWrapper: {
+    classList: {
       type: String,
       required: false
     },

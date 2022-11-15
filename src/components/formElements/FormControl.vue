@@ -1,5 +1,5 @@
 <template>
-  <div :class="classListWrapper">
+  <div class="form-row">
     <label v-if="label" :class="['form-label', classListLabel]" :for="id">{{ label }}</label>
 
     <slot name="prepend" />
@@ -15,22 +15,14 @@
         @input="$emit('input', $event)"
       >
       <button
-        class="btn btn-empty form-control-toggle p-0"
+        class="btn form-control-toggle"
         type="button"
         ref="togglePass"
       >
+        ПП
       <!-- <app-icon name="eye" />-->
       </button>
     </div>
-
-    <textarea
-      v-else-if="type === 'textarea'"
-      :class="['form-control', { 'is-invalid': error }, classListInput]"
-      :id="id"
-      @blur="$emit('blur')"
-      @input="$emit('input', $event)"
-      v-model="model"
-    ></textarea>
 
     <input
       v-else
@@ -50,7 +42,7 @@
 
 <script>
 import { ref, onMounted, computed } from 'vue'
-import togglePassword from '@/utils/toggle-password'
+// import togglePassword from '@/utils/toggle-password'
 
 export default {
   name: 'FormControl',
@@ -80,11 +72,6 @@ export default {
       type: String,
       required: false
     },
-    classListWrapper: {
-      type: String,
-      required: false,
-      default: 'mb-3'
-    },
     classListInput: {
       type: String,
       required: false
@@ -107,7 +94,7 @@ export default {
 
     onMounted(() => {
       if (togglePass.value) {
-        togglePassword(togglePass.value)
+        // togglePassword(togglePass.value)
       }
     })
 
@@ -118,3 +105,49 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .form-row {
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-size: 15px;
+  }
+
+  .form-control {
+    padding: 5px 18px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    height: 47px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+
+    &-password {
+      position: relative;
+
+      .form-control {
+        padding-right: 60px;
+      }
+    }
+
+    &-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #5e74ff;
+    }
+  }
+</style>

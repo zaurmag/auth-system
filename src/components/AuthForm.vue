@@ -23,8 +23,7 @@
     />
 
     <app-button
-      classListBtn="btn-primary btn-lg w-100"
-      classListWrapper="w-100"
+      classList="btn-primary btn--s47 btn--w100"
       type="submit"
       :animate="{ loading: isSubmitting }"
     >Войти</app-button>
@@ -32,14 +31,20 @@
 </template>
 
 <script>
-import { useLoginForm } from '@/use/login-form'
+import FormControl from '@/components/formElements/FormControl.vue';
+import AppButton from '@/components/ui/AppButton.vue'
+import { useAuthForm } from '@/use/auth-form'
 
 export default {
   name: 'AuthForm',
   setup () {
     return {
-      ...useLoginForm()
+      ...useAuthForm()
     }
+  },
+  components: {
+    FormControl,
+    AppButton
   }
 }
 </script>

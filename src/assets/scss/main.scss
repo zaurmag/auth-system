@@ -2,6 +2,7 @@
 @import './vars';
 @import './container';
 @import './page';
+@import './btn';
 
 *,
 *::before,
@@ -18,4 +19,5 @@ body {
 body {
   color: $black;
   font-family: $font-roboto;
+  background-color: $white;
 }

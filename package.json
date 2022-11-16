@@ -8,6 +8,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "fast-glob": "^3.2.12",
     "pinia": "^2.0.23",
     "vee-validate": "^4.7.3",
     "vue": "^3.2.41",
@@ -20,6 +21,7 @@
     "eslint-plugin-vue": "^9.3.0",
     "sass": "latest",
     "sass-loader": "^8.0.2",
-    "vite": "^3.1.8"
+    "vite": "^3.1.8",
+    "vite-plugin-svg-icons": "^2.0.1"
   }
 }

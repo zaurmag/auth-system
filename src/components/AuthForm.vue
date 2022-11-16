@@ -19,7 +19,7 @@
       :blur="pBlur"
       v-model="password"
       classListInput="form-control-lg"
-      placeholder="Не менее 6-ти знаков"
+      placeholder="Не менее 3-x символов"
     />
 
     <app-button

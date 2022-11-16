@@ -1,18 +1,24 @@
 <template>
-  <div :class="['message', 'message--' + message.type]">
+  <div v-if="message" :class="['message', 'message--' + message.type]">
     <div class="message__body">
-      Сообщение текст
+      {{ message.value }}
     </div>
-    <app-button classList="message__close">x</app-button>
+
+    <app-button
+      classList="message__close"
+      :icon="{ name: 'x', placement: 'prepend', classList: 'btn-close-icon' }"
+      @click="store.clearMessage"
+    />
   </div>
 </template>
 
 <script setup>
-import { AppButton } from '@/components/ui/AppButton.vue'
+import AppButton from '@/components/ui/AppButton.vue'
+import { useMessageStore } from '@/stores/message'
+import { computed } from 'vue'
 
-const message = {
-  type: 'info'
-}
+const store = useMessageStore()
+const message = computed(() => store.message)
 </script>
 
 <style scoped lang="scss">
@@ -21,18 +27,22 @@ const message = {
     top: 20px;
     right: 20px;
     z-index: 100;
-    padding: 15px 20px;
+    padding: 15px 30px 15px 20px;
     border-radius: 4px;
     background-color: #3e3e3e;
     color: #fff;
-    max-width: 250px;
+    max-width: 300px;
     width: 100%;
 
     &__close {
       position: absolute;
-      top: 5px;
-      right: 10px;
+      top: 7px;
+      right: 8px;
       padding: 0;
+
+      svg {
+        width: 15px;
+      }
     }
 
     &__body {
@@ -45,6 +55,10 @@ const message = {
 
     &--danger {
       background-color: #fa0000;
+    }
+
+    &--warning {
+      background-color: #9d7606;
     }
 
     &--success {

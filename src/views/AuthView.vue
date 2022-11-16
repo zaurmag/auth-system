@@ -8,28 +8,30 @@
 <script setup>
 import AuthForm from '@/components/AuthForm.vue'
 import { useAuthStore } from '@/stores/auth'
+import { useMessageStore } from '@/stores/message'
 import { useRoute, useRouter } from 'vue-router'
 import { watch } from 'vue'
-// import { error } from '@/utils/error'
+import { error } from '@/utils/error'
 
 const route = useRoute()
 const router = useRouter()
-const store = useAuthStore()
-console.log(store)
-const isAuth = store.isAuthenticated
+const authStore = useAuthStore()
+const messageStore = useMessageStore()
+const isAuth = authStore.isAuthenticated
 document.title = 'Система авторизации'
 
-// if (route.query.message && !isAuth.value) {
-//   store.dispatch('setMessage', {
-//     value: error(route.query.message),
-//     type: 'info'
-//   })
-// }
+if (route.query.message && !isAuth) {
+  messageStore.setMessage({
+    value: error(route.query.message),
+    type: 'warning'
+  })
+}
 
 const redirectIsAuth = val => {
-  const auth = val || isAuth.value
+  const auth = val || isAuth
+
   if (auth && route.path === '/sign-in') {
-    router.push('/')
+    router.push({ name: 'home' })
   }
 }
 

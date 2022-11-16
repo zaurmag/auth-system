@@ -17,14 +17,12 @@ export const useAuthStore = defineStore('auth', () => {
 
     const login = async payload => {
         try {
-            const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDYJtXGK5Bk4aAKSgJyrPIIFSeuxOcaQbk'
+            const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${import.meta.env.VITE_FB_KEY}`
             const { data } = await axios.post(url, {
                 ...payload,
                 returnSecureToken: true
             })
-            console.log(data)
-            localStorage.setItem(JWT_TOKEN, data)
-            messageStore.clearMessage()
+            setToken(data.localId)
         } catch (e) {
             messageStore.setMessage({
                 value: error(e.response.data.error.message),

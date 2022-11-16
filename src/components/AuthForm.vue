@@ -1,5 +1,5 @@
 <template>
-  <form action="#" @submit.prevent="onSubmit">
+  <form class="form" action="#" @submit.prevent="onSubmit">
     <form-control
       id="email"
       label="E-mail"
@@ -26,7 +26,10 @@
       classList="btn-primary btn--s47 btn--w100"
       type="submit"
       :animate="{ loading: isSubmitting }"
+      :attrs="{ disabled: isToManyAttempts }"
     >Войти</app-button>
+
+    <div v-if="isToManyAttempts" class="form__append-mess">Is too many attempts!</div>
   </form>
 </template>
 
@@ -48,3 +51,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .form {
+    &__append-mess {
+      margin-top: 15px;
+      color: #da4343;
+      font-size: 14px;
+    }
+  }
+</style>

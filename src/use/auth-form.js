@@ -30,7 +30,7 @@ export function useAuthForm () {
       )
   )
 
-  const isToManyAttempts = computed(() => submitCount.value >= 3)
+  const isToManyAttempts = computed(() => submitCount.value >= 5)
   watch(isToManyAttempts, val => {
     if (val) {
       setTimeout(() => (submitCount.value = 0), 1500)

@@ -18,8 +18,15 @@
     color: $white;
 
     &:hover {
-      background-color: lighten($primary, 10%);
+      &:not([disabled]) {
+        background-color: lighten($primary, 10%);
+      }
     }
+  }
+
+  &[disabled] {
+    background-color: lighten($primary, 15%);
+    cursor: default;
   }
 
   &--s30 {

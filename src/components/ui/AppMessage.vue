@@ -31,8 +31,7 @@ const message = computed(() => store.message)
     border-radius: 4px;
     background-color: #3e3e3e;
     color: #fff;
-    max-width: 300px;
-    width: 100%;
+    max-width: 400px;
 
     &__close {
       position: absolute;
@@ -54,11 +53,11 @@ const message = computed(() => store.message)
     }
 
     &--danger {
-      background-color: #fa0000;
+      background-color: #c33f3f;
     }
 
     &--warning {
-      background-color: #9d7606;
+      background-color: #c09a2d;
     }
 
     &--success {

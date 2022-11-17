@@ -23,7 +23,7 @@ document.title = 'Система авторизации'
 if (route.query.message && !isAuth) {
   messageStore.setMessage({
     value: error(route.query.message),
-    type: 'warning'
+    type: 'info'
   })
 }
 

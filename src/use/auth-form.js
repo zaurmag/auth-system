@@ -13,20 +13,20 @@ export function useAuthForm () {
     'email',
     yup
       .string()
-      .required('Введите E-mail')
+      .required('Enter email')
       .trim()
-      .email('Введите валидный E-mail')
+      .email('Enter a valid email address')
   )
   const PASS_MINLENGTH = 3
   const { value: password, errorMessage: pError, handleBlur: pBlur } = useField(
     'password',
     yup
       .string()
-      .required('Введите пароль')
+      .required('Enter the password')
       .trim()
       .min(
         PASS_MINLENGTH,
-        `Пароль должен содержать не менее ${PASS_MINLENGTH} символов`
+        `The password must contain at least ${PASS_MINLENGTH} characters`
       )
   )
 

@@ -13,13 +13,13 @@
 
     <form-control
       id="password"
-      label="Пароль"
+      label="Password"
       type="password"
       :error="pError"
       :blur="pBlur"
       v-model="password"
       classListInput="form-control-lg"
-      placeholder="Не менее 3-x символов"
+      placeholder="At least 3 characters"
     />
 
     <app-button
@@ -27,7 +27,7 @@
       type="submit"
       :animate="{ loading: isSubmitting }"
       :attrs="{ disabled: isToManyAttempts }"
-    >Войти</app-button>
+    >Sign In</app-button>
 
     <div v-if="isToManyAttempts" class="form__append-mess">Is too many attempts!</div>
   </form>

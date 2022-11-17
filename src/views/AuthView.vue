@@ -1,6 +1,6 @@
 <template>
   <div class="auth">
-    <h1 class="auth__title">Авторизация</h1>
+    <h1 class="auth__title">Authorization</h1>
     <auth-form />
   </div>
 </template>
@@ -18,7 +18,7 @@ const router = useRouter()
 const authStore = useAuthStore()
 const messageStore = useMessageStore()
 const isAuth = authStore.isAuthenticated
-document.title = 'Система авторизации'
+document.title = 'Authorization system'
 
 if (route.query.message && !isAuth) {
   messageStore.setMessage({

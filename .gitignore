@@ -27,3 +27,6 @@ coverage
 *.sln
 *.sw?
 /.env
+/.firebaserc
+/firebase.json
+/.firebase/

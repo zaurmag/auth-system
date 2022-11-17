@@ -8,19 +8,18 @@
       <input
         :class="['form-control', { 'is-invalid': error }, classListInput]"
         :id="id"
-        :type="type"
+        :type="password.type"
         :placeholder="placeholder"
         v-model="model"
         @blur="$emit('blur')"
         @input="$emit('input', $event)"
       >
-<!--      <button-->
-<!--        class="btn form-control-toggle"-->
-<!--        type="button"-->
-<!--        ref="togglePass"-->
-<!--      >-->
-<!--       <svg-icon name="eye" />-->
-<!--      </button>-->
+
+      <app-button
+        classList="password-toggle-btn"
+        :icon="{ name: password.icon, placement: 'prepend' }"
+        @click="togglePassword"
+      />
     </div>
 
     <input
@@ -40,9 +39,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-// import SvgIcon from '@/components/ui/SvgIcon.vue'
-// import togglePassword from '@/utils/toggle-password'
+import { computed, ref } from 'vue'
+import AppButton from '@/components/ui/AppButton.vue'
 
 const emit = defineEmits(['blur', 'input'])
 
@@ -81,7 +79,25 @@ const props = defineProps({
   }
 })
 
-// const togglePass = ref(null)
+// Password toggle
+const passwordToggle = ref(false)
+const password = ref({
+  type: props.type,
+  icon: 'eye'
+})
+
+const togglePassword = () => {
+  passwordToggle.value = !passwordToggle.value
+
+  if (passwordToggle.value) {
+    password.value.type = 'text'
+    password.value.icon = 'eye-slash'
+  } else {
+    password.value.type = 'password'
+    password.value.icon = 'eye'
+  }
+}
+
 const model = computed({
   get () {
     return props.modelValue
@@ -90,12 +106,6 @@ const model = computed({
     emit('update:modelValue', value)
   }
 })
-
-// onMounted(() => {
-//   if (togglePass.value) {
-//     togglePassword(togglePass.value)
-//   }
-// })
 </script>
 
 <style lang="scss" scoped>
@@ -130,13 +140,6 @@ const model = computed({
       }
     }
 
-    &-toggle {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
     &.is-invalid {
       border-color: #ff6161;
     }
@@ -151,5 +154,15 @@ const model = computed({
     margin-top: 5px;
     font-size: 12px;
     color: #ff6161;
+  }
+
+  .password-toggle-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0;
+    width: 15px;
+    height: 15px;
   }
 </style>

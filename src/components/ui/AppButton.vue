@@ -61,12 +61,19 @@ defineProps({
 })
 </script>
 
-<style scoped lang="sass">
-  .btn-wrapper
-    display: inline-block
+<style scoped lang="scss">
+  .btn-wrapper {
+    display: inline-block;
+  }
 
-  .btn-close-icon
-    color: #fff
-    width: 15px
-    height: 15px
+  .btn-close-icon {
+    color: #fff;
+    width: 15px;
+    height: 15px;
+  }
+
+  .icon-eye {
+    width: 100%;
+    height: 100%;
+  }
 </style>

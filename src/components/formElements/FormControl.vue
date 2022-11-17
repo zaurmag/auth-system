@@ -165,4 +165,21 @@ const model = computed({
     width: 15px;
     height: 15px;
   }
+
+  @media (max-width: 480px) {
+    .form-row {
+      &:not(:last-child) {
+        margin-bottom: 15px;
+      }
+    }
+
+    .form-label {
+      font-size: 14px;
+    }
+
+    .form-control {
+      font-size: 15px;
+      height: 40px;
+    }
+  }
 </style>

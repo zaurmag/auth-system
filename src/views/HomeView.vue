@@ -32,6 +32,7 @@
 
 <script setup>
 import SvgIcon from '@/components/ui/SvgIcon.vue'
+document.title = 'Profile page'
 </script>
 
 <style scoped lang="scss">
@@ -56,11 +57,11 @@ import SvgIcon from '@/components/ui/SvgIcon.vue'
 
     &__row {
       margin: 0 -15px;
-      display: flex;
     }
 
     &__col {
       padding: 0 15px;
+      width: 100%;
 
       &-title {
         margin: 0 0 20px;
@@ -82,11 +83,7 @@ import SvgIcon from '@/components/ui/SvgIcon.vue'
       }
 
       &--info {
-        width: 30%;
-      }
-
-      &--about {
-        width: 70%;
+        margin-bottom: 30px;
       }
     }
 
@@ -99,6 +96,35 @@ import SvgIcon from '@/components/ui/SvgIcon.vue'
         margin-right: 10px;
         width: 18px;
         height: 18px;
+      }
+    }
+
+    @media (min-width: 767px) {
+      &__row {
+        display: flex;
+      }
+
+      &__col {
+        &--info {
+          margin-bottom: 0;
+          width: 50%;
+        }
+
+        &--about {
+          width: 50%;
+        }
+      }
+    }
+
+    @media (min-width: 1024px) {
+      &__col {
+        &--info {
+          width: 30%;
+        }
+
+        &--about {
+          width: 70%;
+        }
       }
     }
   }

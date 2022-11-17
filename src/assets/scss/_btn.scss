@@ -66,6 +66,12 @@
       }
     }
   }
+
+  @media (max-width: 480px) {
+    &--s47 {
+      height: 40px;
+    }
+  }
 }
 
 @keyframes progress {

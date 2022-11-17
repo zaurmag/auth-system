@@ -18,7 +18,6 @@ const router = useRouter()
 const authStore = useAuthStore()
 const messageStore = useMessageStore()
 const isAuth = authStore.isAuthenticated
-document.title = 'Authorization system'
 
 if (route.query.message && !isAuth) {
   messageStore.setMessage({
@@ -58,6 +57,15 @@ watch(isAuth.value, val => {
       text-align: center;
       font-weight: 500;
       font-size: 24px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 20px;
+
+      &__title {
+        margin-bottom: 15px;
+        font-size: 20px;
+      }
     }
   }
 </style>

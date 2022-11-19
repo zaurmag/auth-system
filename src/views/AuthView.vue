@@ -10,7 +10,6 @@ import AuthForm from '@/components/AuthForm.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useMessageStore } from '@/stores/message'
 import { useRoute, useRouter } from 'vue-router'
-import { watch } from 'vue'
 import { error } from '@/utils/error'
 
 const route = useRoute()
@@ -26,19 +25,9 @@ if (route.query.message && !isAuth) {
   })
 }
 
-const redirectIsAuth = val => {
-  const auth = val || isAuth
-
-  if (auth && route.path === '/sign-in') {
-    router.push({ name: 'home' })
-  }
+if (isAuth) {
+  router.push({ name: 'home' })
 }
-
-redirectIsAuth()
-
-watch(isAuth.value, val => {
-  redirectIsAuth(val)
-})
 </script>
 
 <style scoped lang="scss">

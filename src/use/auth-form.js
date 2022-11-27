@@ -4,10 +4,10 @@ import { computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
-export function useAuthForm () {
+export function useAuthForm (initialValues) {
   const router = useRouter()
   const store = useAuthStore()
-  const { handleSubmit, isSubmitting, submitCount } = useForm()
+  const { handleSubmit, isSubmitting, submitCount, resetForm } = useForm({ initialValues })
 
   const { value: email, errorMessage: eError, handleBlur: eBlur } = useField(
     'email',
@@ -47,6 +47,7 @@ export function useAuthForm () {
   })
 
   return {
+    resetForm,
     email,
     eError,
     eBlur,

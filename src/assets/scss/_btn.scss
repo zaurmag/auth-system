@@ -29,6 +29,16 @@
     cursor: default;
   }
 
+  &--link {
+    padding: 0;
+    color: $primary;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   &--s30 {
     font-size: 14px;
     height: 30px;

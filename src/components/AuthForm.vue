@@ -29,7 +29,14 @@
       :attrs="{ disabled: isToManyAttempts }"
     >Sign In</app-button>
 
-    <div v-if="isToManyAttempts" class="form__append-mess">Is too many attempts!</div>
+    <div class="form__footer">
+      <p v-if="isToManyAttempts" class="form__append-mess">Is too many attempts!</p>
+      <p>Подставить
+        <app-button
+          classList="btn--link"
+          @click="resetForm(); insertData()"
+        >демо-данные</app-button> для входа</p>
+    </div>
   </form>
 </template>
 
@@ -37,12 +44,23 @@
 import FormControl from '@/components/formElements/FormControl.vue';
 import AppButton from '@/components/ui/AppButton.vue'
 import { useAuthForm } from '@/use/auth-form'
+import { ref } from 'vue'
 
 export default {
   name: 'AuthForm',
   setup () {
+    const initial = ref({})
+
+    const insertData = () => {
+      initial.value = {
+        email: 'demo@zaurmag.ru',
+        password: '321321321'
+      }
+    }
+
     return {
-      ...useAuthForm()
+      insertData,
+      ...useAuthForm(initial)
     }
   },
   components: {
@@ -55,9 +73,20 @@ export default {
 <style lang="scss" scoped>
   .form {
     &__append-mess {
-      margin-top: 15px;
       color: #da4343;
-      font-size: 14px;
+    }
+
+    &__footer {
+      margin-top: 15px;
+
+      p {
+        margin: 0;
+        font-size: 13px;
+
+        &:not(:last-child) {
+          margin-bottom: 15px;
+        }
+      }
     }
   }
 </style>

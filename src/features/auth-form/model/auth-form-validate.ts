@@ -1,19 +1,12 @@
 import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
-import { computed, reactive, watch } from 'vue'
-import type { IAuthFormValue } from '../config/types'
+import { computed } from 'vue'
 
 export function authFormValidate() {
-  const initialValues: IAuthFormValue = reactive({
-    email: '',
-    password: '',
-  })
-  const { handleSubmit, isSubmitting, submitCount, resetForm } = useForm({
-    initialValues,
-  })
+  const { handleSubmit, isSubmitting, submitCount, resetForm } = useForm()
   const isToManyAttempts = computed(() => submitCount.value >= 5)
 
-  // E-mail field
+  // E-mail
   const {
     value: email,
     errorMessage: eError,
@@ -21,9 +14,10 @@ export function authFormValidate() {
   } = useField<string>(
     'email',
     yup.string().required('Enter email').trim().email('Enter a valid email address'),
+    { initialValue: '' },
   )
 
-  // Password field
+  // Password
   const PASS_MINLENGTH = 3
   const {
     value: password,
@@ -36,20 +30,8 @@ export function authFormValidate() {
       .required('Enter the password')
       .trim()
       .min(PASS_MINLENGTH, `The password must contain at least ${PASS_MINLENGTH} characters`),
+    { initialValue: '' },
   )
-
-  const insertInitialValues = () => {
-    initialValues.email = 'demo@zaurmag.ru'
-    initialValues.password = '321321321'
-
-    resetForm({ values: initialValues })
-  }
-
-  watch(isToManyAttempts, (val) => {
-    if (!val) return
-
-    setTimeout(() => (submitCount.value = 0), 1500)
-  })
 
   return {
     email,
@@ -58,9 +40,10 @@ export function authFormValidate() {
     eError,
     pError,
     password,
-    isSubmitting,
+    resetForm,
+    submitCount,
     handleSubmit,
+    isSubmitting,
     isToManyAttempts,
-    insertInitialValues,
   }
 }

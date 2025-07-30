@@ -15,7 +15,7 @@ export const useAppStore = defineStore('app-store', () => {
 
   const setMessage = (value: IMessage): void => {
     message.value = value
-    setTimeout(clearMessage, 5000)
+    setTimeout(clearMessage, value.timeout || 5000)
   }
 
   return { token, message, setMessage, clearMessage, isAuthenticated }

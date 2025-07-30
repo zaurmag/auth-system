@@ -6,7 +6,9 @@ import { JWT_TOKEN } from '@/shared/config/consts'
 
 const store = useAppStore()
 
-export const login = async (payload: IAuthFormValue) => {
+export const login = async (payload: Partial<IAuthFormValue>) => {
+  if (!payload.email && !payload.password) return
+
   try {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${import.meta.env.VITE_FB_KEY}`
 
@@ -25,6 +27,12 @@ export const login = async (payload: IAuthFormValue) => {
   }
 }
 
+export const logout = async () => {
+  deleteCookie(JWT_TOKEN)
+  delete axios.defaults.headers.common['Authorization']
+  store.$patch({ token: '' })
+}
+
 export const setHeadersToken = (token?: string) => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token || getCookie(JWT_TOKEN)}`
 }
@@ -33,10 +41,4 @@ const setToken = (token: string) => {
   store.$patch({ token })
   setHeadersToken(token)
   setCookie(JWT_TOKEN, token)
-}
-
-export const logout = async () => {
-  deleteCookie(JWT_TOKEN)
-  delete axios.defaults.headers.common['Authorization']
-  store.$patch({ token: '' })
 }

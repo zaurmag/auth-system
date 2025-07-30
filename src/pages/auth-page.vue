@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { defineAsyncComponent as DAC, onMounted, watch } from 'vue'
 import { useAppStore } from '@/shared/store/app-store'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { authFormValidate } from '@/features/auth-form/model/auth-form-validate'
-import { ZmInput, ZmButton } from 'zm-ui-vue'
+import { ZmButton, ZmInput } from 'zm-ui-vue'
 import { login } from '@/features/auth-form/api/auth-form-submit'
 import type { IAuthFormValue } from '@/features/auth-form/config/types'
-import { decodeMessage, type MessageCodes } from '@/shared/lib/decode-message.ts'
+import { decodeMessage, type MessageCodes } from '@/shared/lib/decode-message'
+import { EMessageType } from '@/shared/types'
+
+// Define components
+const AppMessage = DAC(() => import('@/widgets/app-message.vue'))
 
 // Use features
 const store = useAppStore()
@@ -17,11 +21,13 @@ const {
   eError,
   pError,
   password,
+  resetForm,
+  submitCount,
   isSubmitting,
   handleSubmit,
   isToManyAttempts,
-  insertInitialValues,
 } = authFormValidate()
+
 const route = useRoute()
 const router = useRouter()
 
@@ -30,7 +36,7 @@ const init = () => {
   if (route?.query?.message) {
     store.setMessage({
       value: decodeMessage(route.query.message as MessageCodes),
-      type: 'info',
+      type: EMessageType.INFO,
     })
   }
 
@@ -39,7 +45,16 @@ const init = () => {
   }
 }
 
-const onSubmit = handleSubmit(async (values: IAuthFormValue) => {
+const insertInitialValues = () => {
+  const values: IAuthFormValue = {
+    email: 'demo@zaurmag.ru',
+    password: '321321321',
+  }
+
+  resetForm({ values })
+}
+
+const onSubmit = handleSubmit(async (values: Partial<IAuthFormValue>): Promise<void> => {
   try {
     await login(values)
     await router.push({ name: 'home' })
@@ -54,6 +69,21 @@ const onSubmit = handleSubmit(async (values: IAuthFormValue) => {
 
 // Hooks
 onMounted(init)
+
+// Watchers
+watch(isToManyAttempts, (val) => {
+  if (!val) return
+
+  const TIMEOUT = 3000
+  const message = {
+    type: EMessageType.WARNING,
+    value: decodeMessage('IS_TO_MANY_ATTEMPTS'),
+    timeout: TIMEOUT,
+  }
+
+  store.setMessage(message)
+  setTimeout(() => (submitCount.value = 0), TIMEOUT)
+})
 </script>
 
 <template>
@@ -85,12 +115,14 @@ onMounted(init)
         <zm-button theme="primary" size="lg" :is-animation="isSubmitting">Sign In</zm-button>
 
         <div class="auth__form-footer">
-          <p v-if="isToManyAttempts" class="form__append-mess">Is too many attempts!</p>
           <p>
             Подставить
             <zm-button theme="link" @click.prevent="insertInitialValues"> демо-данные </zm-button>
             для входа
           </p>
+
+          <app-message />
+          <!-- <p v-if="isToManyAttempts" class="form__append-mess">Is too many attempts!</p>-->
         </div>
       </form>
     </div>
@@ -137,10 +169,6 @@ onMounted(init)
   @media (max-width: 480px) {
     padding: 1.5rem;
     grid-gap: 1rem;
-
-    &__title {
-      font-size: 1rem;
-    }
   }
 }
 </style>

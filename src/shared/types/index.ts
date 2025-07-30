@@ -1,6 +1,14 @@
+export const enum EMessageType {
+  INFO = 'info',
+  DANGER = 'danger',
+  WARNING = 'warning',
+  SUCCESS = 'success',
+}
+
 export interface IMessage {
-  type: string
+  type: EMessageType
   value: string
+  timeout?: number
 }
 
 export const enum ELayout {

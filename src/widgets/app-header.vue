@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { ZmButton } from 'zm-ui-vue'
-// import AppButton from '@/components/ui/AppButton.vue'
-// import { useAppStore } from '@/shared/store/app-store'
 import { useRouter } from 'vue-router'
+import { logout } from '@/features/auth-form/api/auth-form-submit'
 
-// const store = useAppStore()
 const router = useRouter()
 
-const logout = () => {
-  // store.logout()
-  router.push({ name: 'auth', query: { message: 'auth' } })
+const _logout = () => {
+  logout()
+  router.push({ name: 'auth', query: { message: 'AUTH' } })
 }
 </script>
 
@@ -19,7 +17,7 @@ const logout = () => {
 
     <div class="user">
       <div class="user__name">DemoUser</div>
-      <zm-button theme="primary" @click="logout">Logout</zm-button>
+      <zm-button theme="primary" size="sm" @click="_logout">Logout</zm-button>
     </div>
   </header>
 </template>
@@ -29,6 +27,8 @@ const logout = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: $gray-300;
+  padding: 20px;
 
   .logo {
     font-size: 16px;

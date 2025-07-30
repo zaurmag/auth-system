@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
+import { useAppStore } from '@/shared/store/app-store'
+import { useRouter, useRoute } from 'vue-router'
 import { authFormValidate } from '@/features/auth-form/model/auth-form-validate'
 import { ZmInput, ZmButton } from 'zm-ui-vue'
 import { login } from '@/features/auth-form/api/auth-form-submit'
 import type { IAuthFormValue } from '@/features/auth-form/config/types'
+import { decodeMessage, type MessageCodes } from '@/shared/lib/decode-message.ts'
 
 // Use features
+const store = useAppStore()
 const {
   email,
   eBlur,
@@ -18,9 +22,23 @@ const {
   isToManyAttempts,
   insertInitialValues,
 } = authFormValidate()
+const route = useRoute()
 const router = useRouter()
 
 // Methods
+const init = () => {
+  if (route?.query?.message) {
+    store.setMessage({
+      value: decodeMessage(route.query.message as MessageCodes),
+      type: 'info',
+    })
+  }
+
+  if (!!store.token) {
+    router.push({ name: 'home' })
+  }
+}
+
 const onSubmit = handleSubmit(async (values: IAuthFormValue) => {
   try {
     await login(values)
@@ -33,6 +51,9 @@ const onSubmit = handleSubmit(async (values: IAuthFormValue) => {
     }
   }
 })
+
+// Hooks
+onMounted(init)
 </script>
 
 <template>

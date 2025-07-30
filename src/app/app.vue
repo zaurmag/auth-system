@@ -41,7 +41,7 @@ const layout = computed(() => route.meta.layout as ELayout)
 
   &--common-layout {
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
   }
 
   @media (min-width: 479px) {

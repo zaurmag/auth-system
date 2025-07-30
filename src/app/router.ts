@@ -33,13 +33,13 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const requireAuth = to.meta.auth
   const store = useAppStore()
-  const isAuthenticated = store.isAuthenticated
+  const isAuthenticated = !!store.token
 
   if (requireAuth) {
     if (isAuthenticated) {
       return next()
     } else {
-      next('/sign-in?message=auth')
+      next('/sign-in?message=AUTH')
     }
   }
 

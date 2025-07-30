@@ -2,8 +2,8 @@ import axios from 'axios'
 import { useAppStore } from '@/shared/store/app-store'
 import { deleteCookie, getCookie, setCookie } from '@/shared/lib/cookie'
 import type { IAuthFormValue } from '../config/types'
+import { JWT_TOKEN } from '@/shared/config/consts'
 
-const JWT_TOKEN = 'jwt-token'
 const store = useAppStore()
 
 export const login = async (payload: IAuthFormValue) => {

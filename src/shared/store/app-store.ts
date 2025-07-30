@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { IMessage } from '@/shared/types'
+import { getCookie } from '@/shared/lib/cookie'
+import { JWT_TOKEN } from '@/shared/config/consts'
 
 export const useAppStore = defineStore('app-store', () => {
   const isAuthenticated = ref(false)
   const message = ref<IMessage | null>(null)
-  const token = ref('')
+  const token = ref(getCookie(JWT_TOKEN) || '')
 
   const clearMessage = (): void => {
     message.value = null

@@ -37,7 +37,11 @@ const AppHeader = DAC(() => import('@/widgets/app-header.vue'))
   width: 100%;
 
   &__body {
-    padding: 30px;
+    padding: 15px;
+
+    @media (min-width: 1023px) {
+      padding: 30px;
+    }
   }
 }
 

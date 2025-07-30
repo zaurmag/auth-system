@@ -26,11 +26,13 @@ const layout = computed(() => route.meta.layout as ELayout)
 
 <style lang="scss" scoped>
 .page {
+  display: grid;
   height: 100vh;
   min-width: 320px;
   overflow: auto;
 
   &--empty-layout {
+    justify-items: center;
     background-color: $gray-200;
 
     > .container {
@@ -40,7 +42,6 @@ const layout = computed(() => route.meta.layout as ELayout)
   }
 
   &--common-layout {
-    display: grid;
     grid-template-columns: auto 1fr;
   }
 

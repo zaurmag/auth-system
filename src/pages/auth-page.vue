@@ -2,6 +2,8 @@
 import { useRouter } from 'vue-router'
 import { authFormValidate } from '@/features/auth-form/model/auth-form-validate'
 import { ZmInput, ZmButton } from 'zm-ui-vue'
+import { login } from '@/features/auth-form/api/auth-form-submit'
+import type { IAuthFormValue } from '@/features/auth-form/config/types'
 
 // Use features
 const {
@@ -19,10 +21,10 @@ const {
 const router = useRouter()
 
 // Methods
-const onSubmit = handleSubmit(async (values: unknown) => {
+const onSubmit = handleSubmit(async (values: IAuthFormValue) => {
   try {
-    console.log('Submit auth request...', values)
-    // await router.push({ name: 'home' })
+    await login(values)
+    await router.push({ name: 'home' })
   } catch (e) {
     if (e instanceof Error) {
       throw new Error(e.message)
@@ -59,19 +61,13 @@ const onSubmit = handleSubmit(async (values: unknown) => {
           @blur="pBlur"
         />
 
-        <zm-button theme="primary" size="lg">Sign In</zm-button>
+        <zm-button theme="primary" size="lg" :is-animation="isSubmitting">Sign In</zm-button>
 
         <div class="auth__form-footer">
           <p v-if="isToManyAttempts" class="form__append-mess">Is too many attempts!</p>
           <p>
             Подставить
-            <zm-button
-              theme="link"
-              :is-animation="isSubmitting"
-              @click.prevent="insertInitialValues"
-            >
-              демо-данные
-            </zm-button>
+            <zm-button theme="link" @click.prevent="insertInitialValues"> демо-данные </zm-button>
             для входа
           </p>
         </div>

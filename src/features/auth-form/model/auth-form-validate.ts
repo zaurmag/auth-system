@@ -1,14 +1,10 @@
 import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { computed, reactive, watch } from 'vue'
-
-interface IFormInitialValue {
-  email?: string | undefined
-  password?: string | undefined
-}
+import type { IAuthFormValue } from '../config/types'
 
 export function authFormValidate() {
-  const initialValues: IFormInitialValue = reactive({
+  const initialValues: IAuthFormValue = reactive({
     email: '',
     password: '',
   })

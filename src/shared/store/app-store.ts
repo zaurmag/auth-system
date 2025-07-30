@@ -5,6 +5,7 @@ import type { IMessage } from '@/shared/types'
 export const useAppStore = defineStore('app-store', () => {
   const isAuthenticated = ref(false)
   const message = ref<IMessage | null>(null)
+  const token = ref('')
 
   const clearMessage = (): void => {
     message.value = null
@@ -15,5 +16,5 @@ export const useAppStore = defineStore('app-store', () => {
     setTimeout(clearMessage, 5000)
   }
 
-  return { message, setMessage, clearMessage, isAuthenticated }
+  return { token, message, setMessage, clearMessage, isAuthenticated }
 })

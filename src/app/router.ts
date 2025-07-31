@@ -3,6 +3,14 @@ import HomePage from '../pages/home-page.vue'
 import { useAppStore } from '@/shared/store/app-store'
 import { ELayout } from '@/shared/types'
 
+declare module 'vue-router' {
+  interface RouteMeta extends Record<string | number | symbol, unknown> {
+    layout: ELayout
+    auth?: boolean
+    title?: string
+  }
+}
+
 const routes = [
   {
     path: '/',
@@ -11,6 +19,7 @@ const routes = [
     meta: {
       layout: ELayout.COMMON,
       auth: true,
+      title: 'Home page',
     },
   },
   {
@@ -19,6 +28,7 @@ const routes = [
     component: () => import('../pages/auth-page.vue'),
     meta: {
       layout: ELayout.EMPTY,
+      title: 'Auth page',
     },
   },
 ]
@@ -34,6 +44,8 @@ router.beforeEach((to, from, next) => {
   const requireAuth = to.meta.auth
   const store = useAppStore()
   const isAuthenticated = !!store.token
+
+  document.title = to.meta.title || 'Auth system'
 
   if (requireAuth) {
     if (isAuthenticated) {

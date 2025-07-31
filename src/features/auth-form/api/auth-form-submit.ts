@@ -1,8 +1,10 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useAppStore } from '@/shared/store/app-store'
 import { deleteCookie, getCookie, setCookie } from '@/shared/lib/cookie'
 import type { IAuthFormValue } from '../config/types'
 import { JWT_TOKEN } from '@/shared/config/consts'
+import { decodeMessage } from '@/shared/lib/decode-message.ts'
+import { EMessageType } from '@/shared/types'
 
 const store = useAppStore()
 
@@ -19,7 +21,13 @@ export const login = async (payload: Partial<IAuthFormValue>) => {
 
     setToken(data.idToken)
   } catch (e) {
-    if (e instanceof Error) {
+    if (e instanceof AxiosError && e.response) {
+      const errorMessage = e.response.data.error.message
+
+      if (errorMessage === 'EMAIL_NOT_FOUND' || errorMessage === 'INVALID_PASSWORD') {
+        store.setMessage({ type: EMessageType.DANGER, value: decodeMessage(errorMessage) })
+      }
+
       throw new Error(e.message)
     } else {
       throw new Error('Unknown error')

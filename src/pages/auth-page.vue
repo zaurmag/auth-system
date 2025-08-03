@@ -104,7 +104,7 @@ watch(isToManyAttempts, (val) => {
           @blur="pBlur"
         />
 
-        <zm-button theme="primary" size="lg" :is-animation="isSubmitting">Sign In</zm-button>
+        <zm-button theme="primary" size="lg" :animation="isSubmitting">Sign In</zm-button>
 
         <div class="auth__form-footer">
           <p>
@@ -114,7 +114,6 @@ watch(isToManyAttempts, (val) => {
           </p>
 
           <app-message />
-          <!-- <p v-if="isToManyAttempts" class="form__append-mess">Is too many attempts!</p>-->
         </div>
       </form>
     </div>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ZmButton } from 'zm-ui-vue'
 import { useRouter } from 'vue-router'
-import { logout } from '@/features/auth-form/api/auth-form-submit'
+import { logout as authFormLogout } from '@/shared/api/auth-form'
 
 const router = useRouter()
 
-const _logout = () => {
-  logout()
+const logout = () => {
+  authFormLogout()
   router.push({ name: 'auth', query: { message: 'AUTH' } })
 }
 </script>
@@ -17,7 +17,7 @@ const _logout = () => {
 
     <div class="user">
       <div class="user__name">DemoUser</div>
-      <zm-button theme="primary" size="sm" @click="_logout">Logout</zm-button>
+      <zm-button theme="primary" size="sm" @click="logout">Logout</zm-button>
     </div>
   </header>
 </template>

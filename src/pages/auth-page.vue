@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { defineAsyncComponent as DAC, onMounted, watch } from 'vue'
-import { useAppStore } from '@/shared/store/app-store'
+import { useAppStore } from '@/shared/model/app-store'
 import { useRoute, useRouter } from 'vue-router'
 import { authFormValidate } from '@/features/auth-form/model/auth-form-validate'
 import { ZmButton, ZmInput } from 'zm-ui-vue'
-import { login } from '@/features/auth-form/api/auth-form-submit'
+import { login } from '@/shared/api/auth-form'
 import type { IAuthFormValue } from '@/features/auth-form/config/types'
 import { decodeMessage, type MessageCodes } from '@/shared/lib/decode-message'
-import { EMessageType } from '@/shared/types'
+import { EMessageType } from '@/shared/config/types.ts'
 
 // Define components
 const AppMessage = DAC(() => import('@/widgets/app-message.vue'))
@@ -55,16 +55,8 @@ const insertInitialValues = () => {
 }
 
 const onSubmit = handleSubmit(async (values: Partial<IAuthFormValue>): Promise<void> => {
-  try {
-    await login(values)
-    await router.push({ name: 'home' })
-  } catch (e) {
-    if (e instanceof Error) {
-      throw new Error(e.message)
-    } else {
-      throw new Error('Unknown error')
-    }
-  }
+  await login(values)
+  await router.push({ name: 'home' })
 })
 
 // Hooks
@@ -112,7 +104,7 @@ watch(isToManyAttempts, (val) => {
           @blur="pBlur"
         />
 
-        <zm-button theme="primary" size="lg" :is-animation="isSubmitting">Sign In</zm-button>
+        <zm-button theme="primary" size="lg" :animation="isSubmitting">Sign In</zm-button>
 
         <div class="auth__form-footer">
           <p>
@@ -122,7 +114,6 @@ watch(isToManyAttempts, (val) => {
           </p>
 
           <app-message />
-          <!-- <p v-if="isToManyAttempts" class="form__append-mess">Is too many attempts!</p>-->
         </div>
       </form>
     </div>

@@ -28,9 +28,10 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        // api: 'modern-compiler',
+        // __api: 'modern-compiler',
         additionalData: `
-          @use '@/app/assets/styles/variables' as *;
+          @use '/node_modules/zm-ui-vue/src/app/assets/styles/variables.scss' as *;
+          @use '/node_modules/zm-ui-vue/src/app/assets/styles/functions.scss' as *;
         `,
       },
     },

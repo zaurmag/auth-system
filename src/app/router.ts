@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../pages/home-page.vue'
-import { useAppStore } from '@/shared/store/app-store'
-import { ELayout } from '@/shared/types'
+import { useAppStore } from '@/shared/model/app-store'
+import { ELayout } from '@/shared/config/types.ts'
 
 declare module 'vue-router' {
   interface RouteMeta extends Record<string | number | symbol, unknown> {

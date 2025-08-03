@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ZmButton, ZmSvgIcon } from 'zm-ui-vue'
-import { useAppStore } from '@/shared/store/app-store'
+import { useAppStore } from '@/shared/model/app-store'
 import { storeToRefs } from 'pinia'
 
 const store = useAppStore()

@@ -2,11 +2,11 @@
  * Устанавливает cookie с указанным именем, значением и сроком действия.
  * @param name Имя cookie.
  * @param value Значение cookie.
- * @param expired Время жизни cookie (в днях).
+ * @param expired Время жизни cookie (в минутах).
  */
-export const setCookie = (name: string, value: unknown, expired: number = 1) => {
+export const setCookie = (name: string, value: unknown, expired: number = 60): void => {
   const date = new Date()
-  date.setTime(date.getTime() + expired * 24 * 60 * 60 * 1000) // Устанавливается время истечения cookie
+  date.setTime(date.getTime() + expired * 60 * 1000)
   const expires = `expires=${date.toUTCString()}`
 
   document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))}; ${expires}; path=/`
@@ -17,7 +17,7 @@ export const setCookie = (name: string, value: unknown, expired: number = 1) => 
  * @param name Имя cookie.
  * @returns Значение cookie или null, если cookie не найдено.
  */
-export const getCookie = (name: string): unknown | null => {
+export const getCookie = (name: string): string | null => {
   const cookies = document.cookie.split('; ')
 
   for (const cookie of cookies) {
@@ -34,6 +34,6 @@ export const getCookie = (name: string): unknown | null => {
  * Удаляет cookie по его имени.
  * @param name Имя cookie.
  */
-export const deleteCookie = (name: string) => {
+export const deleteCookie = (name: string): void => {
   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`
 }

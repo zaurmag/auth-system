@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { computed, defineAsyncComponent as DAC, type Component } from 'vue'
-import { ELayout } from '@/shared/types'
+import { ELayout } from '@/shared/config/types.ts'
 
 // Components
 const EmptyLayout = DAC(() => import('@/app/layouts/empty-layout.vue'))

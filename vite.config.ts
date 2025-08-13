@@ -30,8 +30,8 @@ export default defineConfig({
       scss: {
         // __api: 'modern-compiler',
         additionalData: `
-          @use '/node_modules/zm-ui-vue/src/app/assets/styles/variables.scss' as *;
-          @use '/node_modules/zm-ui-vue/src/app/assets/styles/functions.scss' as *;
+          @use '/node_modules/zm-ui-vue/src/app/styles/variables.scss' as *;
+          @use '/node_modules/zm-ui-vue/src/app/styles/functions.scss' as *;
         `,
       },
     },
